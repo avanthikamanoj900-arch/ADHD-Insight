@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ADHD Insight | Attention Test</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .step {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 30px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 20px;
+            border-radius: 30px;
+            background: rgba(139,92,246,0.15);
+            color: #c4b5fd;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            line-height: 1.7;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .instructions {
+            margin: 30px auto;
+            max-width: 650px;
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .instructions strong {
+            color: #22d3ee;
+        }
+
+        .test-area {
+            position: relative;
+            height: 360px;
+            margin-top: 30px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #0d1124;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .stimulus {
+            font-size: 85px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .x {
+            color: #22d3ee;
+        }
+
+        .distraction {
+            color: #f472b6;
+        }
+
+        .start-button,
+        .next-button {
+            margin-top: 25px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg,#7c3aed,#06b6d4);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .next-button {
+            display: none;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .stat {
+            min-width: 150px;
+            padding: 18px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 15px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #22d3ee;
+            margin-top: 8px;
+        }
+
+        .webcam-section {
+            margin-top: 30px;
+        }
+
+        video {
+            width: 220px;
+            height: 165px;
+            object-fit: cover;
+            border-radius: 18px;
+            transform: scaleX(-1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .camera-status {
+            margin-top: 10px;
+            color: #71717a;
+            font-size: 13px;
+        }
+
+        .notice {
+            margin-top: 30px;
+            color: #71717a;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media(max-width:600px) {
+
+            h1 {
+                font-size: 35px;
+            }
+
+            .test-area {
+                height: 300px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <div class="logo">
+        🧠 ADHD<span>Insight</span>
+    </div>
+
+    <div class="step">
+        Step 2 / 4
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+    <div class="badge">
+        👁️ Attention Analysis
+    </div>
+
+
+    <h1>
+        Stay focused.
+    </h1>
+
+
+    <p class="subtitle">
+
+        A series of letters will appear on the screen.
+        Press the SPACEBAR only when you see the letter X.
+
+    </p>
+
+
+    <div class="instructions">
+
+        <strong>Remember:</strong>
+
+        Press SPACE when you see
+
+        <strong>X</strong>
+
+        but do nothing for other letters.
+
+        Try to respond as accurately as possible.
+
+    </div>
+
+
+    <div class="test-area">
+
+        <div id="stimulus"
+             class="stimulus">
+        </div>
+
+        <div id="readyText">
+            Press START when you're ready
+        </div>
+
+    </div>
+
+
+    <button id="startButton"
+            class="start-button"
+            onclick="startTest()">
+
+        Start Attention Test →
+
+    </button>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            Correct
+
+            <span id="correct"
+                  class="stat-value">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            Missed
+
+            <span id="missed"
+                  class="stat-value">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            False Responses
+
+            <span id="false"
+                  class="stat-value">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="stat">
+
+            Avg Reaction
+
+            <span id="reaction"
+                  class="stat-value">
+                --
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="webcam-section">
+
+        <video id="video"
+               autoplay
+               muted>
+        </video>
+
+        <div id="cameraStatus"
+             class="camera-status">
+
+            Webcam is not active.
+
+        </div>
+
+    </div>
+
+
+    <button id="nextButton"
+            class="next-button"
+            onclick="continueTest()">
+
+        Continue to Interaction Test →
+
+    </button>
+
+
+    <div class="notice">
+
+        Webcam access is used only for this prototype's
+        attention-analysis experiment. No video is uploaded
+        or stored by this page.
+
+        <br><br>
+
+        This assessment is a research/educational prototype
+        and does not diagnose ADHD.
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+let running = false;
+
+let trial = 0;
+
+let totalTrials = 20;
+
+let correct = 0;
+
+let missed = 0;
+
+let falseResponses = 0;
+
+let reactionTimes = [];
+
+let currentIsTarget = false;
+
+let stimulusStart = 0;
+
+let timeoutID;
+
+
+const stimulus =
+    document.getElementById("stimulus");
+
+
+const readyText =
+    document.getElementById("readyText");
+
+
+const startButton =
+    document.getElementById("startButton");
+
+
+const nextButton =
+    document.getElementById("nextButton");
+
+
+const video =
+    document.getElementById("video");
+
+
+const cameraStatus =
+    document.getElementById("cameraStatus");
+
+
+async function startCamera() {
+
+    try {
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: false
+            });
+
+        video.srcObject = stream;
+
+        cameraStatus.innerText =
+            "Webcam active — video remains local.";
+
+    }
+
+    catch(error) {
+
+        cameraStatus.innerText =
+            "Webcam permission not provided. Attention test can continue.";
+
+    }
+
+}
+
+
+function startTest() {
+
+    running = true;
+
+    trial = 0;
+
+    correct = 0;
+
+    missed = 0;
+
+    falseResponses = 0;
+
+    reactionTimes = [];
+
+    startButton.style.display = "none";
+
+    readyText.style.display = "none";
+
+    startCamera();
+
+    updateStats();
+
+    nextTrial();
+
+}
+
+
+function nextTrial() {
+
+    if (!running) return;
+
+
+    if (trial >= totalTrials) {
+
+        finishTest();
+
+        return;
+
+    }
+
+
+    trial++;
+
+
+    stimulus.style.display = "none";
+
+
+    const delay =
+        700 + Math.random() * 1200;
+
+
+    timeoutID = setTimeout(() => {
+
+        showStimulus();
+
+    }, delay);
+
+}
+
+
+function showStimulus() {
+
+    const letters =
+        ["X","A","B","C","D","E"];
+
+
+    const randomIndex =
+        Math.floor(Math.random() * letters.length);
+
+
+    const letter =
+        letters[randomIndex];
+
+
+    currentIsTarget =
+        letter === "X";
+
+
+    stimulus.innerText =
+        letter;
+
+
+    stimulus.className =
+        currentIsTarget
+        ? "stimulus x"
+        : "stimulus distraction";
+
+
+    stimulus.style.display =
+        "block";
+
+
+    stimulusStart =
+        performance.now();
+
+
+    timeoutID = setTimeout(() => {
+
+        if (currentIsTarget) {
+
+            missed++;
+
+        }
+
+
+        stimulus.style.display =
+            "none";
+
+
+        updateStats();
+
+
+        nextTrial();
+
+    }, 1200);
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (!running) return;
+
+
+        if (event.code !== "Space") return;
+
+
+        event.preventDefault();
+
+
+        const reaction =
+            performance.now() - stimulusStart;
+
+
+        if (stimulus.style.display === "none") {
+
+            return;
+
+        }
+
+
+        clearTimeout(timeoutID);
+
+
+        if (currentIsTarget) {
+
+            correct++;
+
+            reactionTimes.push(reaction);
+
+        }
+
+        else {
+
+            falseResponses++;
+
+        }
+
+
+        stimulus.style.display =
+            "none";
+
+
+        updateStats();
+
+
+        setTimeout(
+            nextTrial,
+            400
+        );
+
+    }
+);
+
+
+function updateStats() {
+
+    document.getElementById(
+        "correct"
+    ).innerText = correct;
+
+
+    document.getElementById(
+        "missed"
+    ).innerText = missed;
+
+
+    document.getElementById(
+        "false"
+    ).innerText = falseResponses;
+
+
+    if (reactionTimes.length > 0) {
+
+        const average =
+            reactionTimes.reduce(
+                (a,b) => a + b,
+                0
+            ) / reactionTimes.length;
+
+
+        document.getElementById(
+            "reaction"
+        ).innerText =
+            Math.round(average) + " ms";
+
+    }
+
+}
+
+
+function finishTest() {
+
+    running = false;
+
+    stimulus.style.display =
+        "none";
+
+
+    readyText.style.display =
+        "block";
+
+
+    readyText.innerText =
+        "Attention test complete ✓";
+
+
+    nextButton.style.display =
+        "inline-block";
+
+
+    if (video.srcObject) {
+
+        video.srcObject
+            .getTracks()
+            .forEach(
+                track => track.stop()
+            );
+
+    }
+
+}
+
+
+function continueTest() {
+
+    window.location.href =
+        "interaction.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
