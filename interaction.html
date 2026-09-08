@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ADHD Insight | Interaction Test</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b1a;
+    color: white;
+    min-height: 100vh;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #8b5cf6;
+}
+
+.step {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 9px 20px;
+    border-radius: 30px;
+    background: rgba(139,92,246,0.15);
+    color: #c4b5fd;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.7;
+}
+
+.instructions {
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.instructions strong {
+    color: #22d3ee;
+}
+
+.test-box {
+    margin-top: 30px;
+    padding: 40px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.round {
+    color: #a78bfa;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.rule {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.target {
+    width: 180px;
+    height: 180px;
+    margin: 20px auto;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+    font-weight: bold;
+    background: #151a32;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.15s;
+}
+
+.target.active {
+    transform: scale(1.05);
+}
+
+.start-button,
+.next-button {
+    margin-top: 25px;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(90deg,#7c3aed,#06b6d4);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.next-button {
+    display: none;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.stat {
+    min-width: 150px;
+    padding: 18px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 15px;
+}
+
+.value {
+    display: block;
+    margin-top: 8px;
+    font-size: 25px;
+    color: #22d3ee;
+    font-weight: bold;
+}
+
+.status {
+    margin-top: 20px;
+    color: #9ca3af;
+}
+
+.notice {
+    margin-top: 30px;
+    color: #71717a;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<nav>
+
+<div class="logo">
+🧠 ADHD<span>Insight</span>
+</div>
+
+<div class="step">
+Step 3 / 4
+</div>
+
+</nav>
+
+
+<div class="container">
+
+
+<div class="badge">
+🖱️ Interaction Analysis
+</div>
+
+
+<h1>
+How do you respond?
+</h1>
+
+
+<p class="subtitle">
+
+This test examines reaction speed, response inhibition,
+and your ability to adapt when task rules change.
+
+</p>
+
+
+<div class="instructions">
+
+<strong>Follow the rule shown above the target.</strong>
+
+<br><br>
+
+Respond as quickly and accurately as you can.
+
+</div>
+
+
+<div class="test-box">
+
+
+<div id="round"
+     class="round">
+
+Ready
+
+</div>
+
+
+<div id="rule"
+     class="rule">
+
+Press START to begin.
+
+</div>
+
+
+<div id="target"
+     class="target">
+
+●
+
+</div>
+
+
+<div id="status"
+     class="status">
+
+</div>
+
+
+<button id="startButton"
+        class="start-button"
+        onclick="startTest()">
+
+Start Interaction Test →
+
+</button>
+
+
+<button id="nextButton"
+        class="next-button"
+        onclick="continueTest()">
+
+Continue to Learning Test →
+
+</button>
+
+
+</div>
+
+
+<div class="stats">
+
+
+<div class="stat">
+
+Correct
+
+<span id="correct"
+      class="value">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+Errors
+
+<span id="errors"
+      class="value">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+Missed
+
+<span id="missed"
+      class="value">
+
+0
+
+</span>
+
+</div>
+
+
+<div class="stat">
+
+Avg Reaction
+
+<span id="reaction"
+      class="value">
+
+--
+
+</span>
+
+</div>
+
+
+</div>
+
+
+<div class="notice">
+
+This is a research/educational prototype.
+It does not diagnose ADHD.
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+let running = false;
+
+let phase = 0;
+
+let trial = 0;
+
+let correct = 0;
+
+let errors = 0;
+
+let missed = 0;
+
+let reactionTimes = [];
+
+let targetVisible = false;
+
+let targetShouldBeClicked = false;
+
+let stimulusTime = 0;
+
+let timeoutID;
+
+
+const target =
+document.getElementById("target");
+
+const rule =
+document.getElementById("rule");
+
+const round =
+document.getElementById("round");
+
+const status =
+document.getElementById("status");
+
+
+function startTest() {
+
+    running = true;
+
+    phase = 1;
+
+    trial = 0;
+
+    correct = 0;
+
+    errors = 0;
+
+    missed = 0;
+
+    reactionTimes = [];
+
+    document.getElementById(
+        "startButton"
+    ).style.display = "none";
+
+    document.getElementById(
+        "nextButton"
+    ).style.display = "none";
+
+    updateStats();
+
+    nextTrial();
+
+}
+
+
+function nextTrial() {
+
+    if (!running) return;
+
+
+    if (trial >= 10) {
+
+        if (phase === 1) {
+
+            phase = 2;
+
+            trial = 0;
+
+            setTimeout(nextTrial, 1000);
+
+            return;
+
+        }
+
+        if (phase === 2) {
+
+            phase = 3;
+
+            trial = 0;
+
+            setTimeout(nextTrial, 1000);
+
+            return;
+
+        }
+
+        finishTest();
+
+        return;
+
+    }
+
+
+    trial++;
+
+
+    target.style.background =
+        "#151a32";
+
+    target.innerText =
+        "•";
+
+    targetVisible = false;
+
+
+    if (phase === 1) {
+
+        round.innerText =
+            "ROUND 1 — GO / NO-GO";
+
+        rule.innerText =
+            "CLICK when the target is GREEN. Do NOT click RED.";
+
+        setTimeout(showGoNoGo, 700);
+
+    }
+
+
+    else if (phase === 2) {
+
+        round.innerText =
+            "ROUND 2 — REACTION";
+
+        rule.innerText =
+            "Click the target as quickly as possible.";
+
+        setTimeout(showReaction, 700);
+
+    }
+
+
+    else {
+
+        round.innerText =
+            "ROUND 3 — TASK SWITCHING";
+
+        rule.innerText =
+            trial % 2 === 1
+            ? "ODD trials: CLICK"
+            : "EVEN trials: DON'T CLICK";
+
+        setTimeout(showSwitching, 700);
+
+    }
+
+}
+
+
+function showGoNoGo() {
+
+    targetVisible = true;
+
+    targetShouldBeClicked =
+        Math.random() > 0.35;
+
+    target.innerText =
+        targetShouldBeClicked ? "●" : "●";
+
+    target.style.background =
+        targetShouldBeClicked
+        ? "#16a34a"
+        : "#dc2626";
+
+    stimulusTime =
+        performance.now();
+
+
+    timeoutID = setTimeout(() => {
+
+        if (
+            targetVisible &&
+            targetShouldBeClicked
+        ) {
+
+            missed++;
+
+        }
+
+        hideTarget();
+
+        updateStats();
+
+        setTimeout(nextTrial,400);
+
+    },1200);
+
+}
+
+
+function showReaction() {
+
+    targetVisible = true;
+
+    targetShouldBeClicked = true;
+
+    target.innerText = "⚡";
+
+    target.style.background =
+        "#7c3aed";
+
+    stimulusTime =
+        performance.now();
+
+
+    timeoutID = setTimeout(() => {
+
+        missed++;
+
+        hideTarget();
+
+        updateStats();
+
+        setTimeout(nextTrial,400);
+
+    },1500);
+
+}
+
+
+function showSwitching() {
+
+    targetVisible = true;
+
+    targetShouldBeClicked =
+        trial % 2 === 1;
+
+    target.innerText =
+        targetShouldBeClicked
+        ? "CLICK"
+        : "WAIT";
+
+    target.style.background =
+        "#0891b2";
+
+    stimulusTime =
+        performance.now();
+
+
+    timeoutID = setTimeout(() => {
+
+        if (
+            targetShouldBeClicked
+        ) {
+
+            missed++;
+
+        }
+
+        hideTarget();
+
+        updateStats();
+
+        setTimeout(nextTrial,400);
+
+    },1200);
+
+}
+
+
+target.addEventListener(
+    "click",
+    function() {
+
+        if (!running) return;
+
+        if (!targetVisible) {
+
+            errors++;
+
+            updateStats();
+
+            return;
+
+        }
+
+
+        clearTimeout(timeoutID);
+
+
+        const reaction =
+            performance.now() - stimulusTime;
+
+
+        if (targetShouldBeClicked) {
+
+            correct++;
+
+            reactionTimes.push(reaction);
+
+            status.innerText =
+                "Correct response ✓";
+
+        }
+
+        else {
+
+            errors++;
+
+            status.innerText =
+                "Response should have been withheld.";
+
+        }
+
+
+        hideTarget();
+
+        updateStats();
+
+        setTimeout(nextTrial,400);
+
+    }
+);
+
+
+function hideTarget() {
+
+    targetVisible = false;
+
+    target.style.background =
+        "#151a32";
+
+    target.innerText =
+        "•";
+
+}
+
+
+function updateStats() {
+
+    document.getElementById(
+        "correct"
+    ).innerText = correct;
+
+
+    document.getElementById(
+        "errors"
+    ).innerText = errors;
+
+
+    document.getElementById(
+        "missed"
+    ).innerText = missed;
+
+
+    if (reactionTimes.length > 0) {
+
+        const average =
+            reactionTimes.reduce(
+                (a,b) => a+b,
+                0
+            ) / reactionTimes.length;
+
+
+        document.getElementById(
+            "reaction"
+        ).innerText =
+            Math.round(average) + " ms";
+
+    }
+
+}
+
+
+function finishTest() {
+
+    running = false;
+
+    hideTarget();
+
+    round.innerText =
+        "INTERACTION TEST COMPLETE ✓";
+
+    rule.innerText =
+        "Your interaction data has been recorded.";
+
+    status.innerText =
+        "Ready for the learning assessment.";
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "inline-block";
+
+}
+
+
+function continueTest() {
+
+    window.location.href =
+        "learning.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
