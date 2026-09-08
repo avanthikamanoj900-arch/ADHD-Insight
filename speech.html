@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADHD Insight | Speech Analysis</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .step {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 20px;
+            border-radius: 30px;
+            background: rgba(139, 92, 246, 0.15);
+            color: #c4b5fd;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            line-height: 1.7;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .task {
+            margin-top: 40px;
+            padding: 40px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 25px;
+        }
+
+        .task h2 {
+            margin-bottom: 20px;
+        }
+
+        .prompt {
+            font-size: 21px;
+            line-height: 1.7;
+            color: #e5e7eb;
+            margin-bottom: 30px;
+        }
+
+        .timer {
+            font-size: 55px;
+            font-weight: bold;
+            margin: 25px;
+            color: #22d3ee;
+        }
+
+        .record-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: none;
+            background: #7c3aed;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .record-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(124,58,237,0.5);
+        }
+
+        .recording {
+            background: #ef4444;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239,68,68,0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 25px rgba(239,68,68,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(239,68,68,0);
+            }
+        }
+
+        .status {
+            margin-top: 20px;
+            color: #9ca3af;
+        }
+
+        .audio-container {
+            margin-top: 25px;
+            display: none;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        .next-button {
+            display: none;
+            margin-top: 30px;
+            padding: 15px 35px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(90deg,#7c3aed,#06b6d4);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .info {
+            margin-top: 30px;
+            color: #71717a;
+            font-size: 12px;
+        }
+
+        @media(max-width:600px) {
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .task {
+                padding: 25px;
+            }
+
+            .prompt {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🧠 ADHD<span>Insight</span>
+    </div>
+
+    <div class="step">
+        Step 1 / 4
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="badge">
+        🎙️ Speech Analysis
+    </div>
+
+    <h1>
+        Tell us about yourself.
+    </h1>
+
+    <p class="subtitle">
+        Speak naturally. There are no right or wrong answers.
+        Try to keep talking continuously until the timer finishes.
+    </p>
+
+
+    <div class="task">
+
+        <h2>Your task</h2>
+
+        <div class="prompt">
+            "Describe your typical day from the moment you wake up
+            until you go to sleep. Talk about what you usually do,
+            what you enjoy, and anything that tends to distract you."
+        </div>
+
+
+        <div class="timer" id="timer">
+            60
+        </div>
+
+
+        <button
+            class="record-button"
+            id="recordButton"
+            onclick="toggleRecording()">
+
+            🎙️
+
+        </button>
+
+
+        <div class="status" id="status">
+            Click the microphone to begin.
+        </div>
+
+
+        <div class="audio-container" id="audioContainer">
+
+            <audio id="audioPlayback" controls></audio>
+
+        </div>
+
+
+        <button
+            class="next-button"
+            id="nextButton"
+            onclick="continueAssessment()">
+
+            Continue to Attention Test →
+
+        </button>
+
+    </div>
+
+
+    <div class="info">
+
+        Your recording is used only for this assessment prototype.
+        This tool does not provide a medical diagnosis.
+
+    </div>
+
+</div>
+
+
+<script>
+
+let mediaRecorder;
+
+let audioChunks = [];
+
+let recording = false;
+
+let timeLeft = 60;
+
+let timerInterval;
+
+
+async function toggleRecording() {
+
+    if (!recording) {
+
+        try {
+
+            const stream =
+                await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+
+            mediaRecorder =
+                new MediaRecorder(stream);
+
+            audioChunks = [];
+
+            mediaRecorder.ondataavailable = function(event) {
+
+                audioChunks.push(event.data);
+
+            };
+
+
+            mediaRecorder.onstop = function() {
+
+                const audioBlob =
+                    new Blob(audioChunks, {
+                        type: "audio/webm"
+                    });
+
+                const audioURL =
+                    URL.createObjectURL(audioBlob);
+
+                document.getElementById(
+                    "audioPlayback"
+                ).src = audioURL;
+
+                document.getElementById(
+                    "audioContainer"
+                ).style.display = "block";
+
+                document.getElementById(
+                    "nextButton"
+                ).style.display = "inline-block";
+
+            };
+
+
+            mediaRecorder.start();
+
+            recording = true;
+
+            timeLeft = 60;
+
+            document.getElementById(
+                "recordButton"
+            ).classList.add("recording");
+
+            document.getElementById(
+                "status"
+            ).innerText =
+                "Recording... speak naturally.";
+
+            startTimer();
+
+        }
+
+        catch(error) {
+
+            alert(
+                "Microphone permission is required to complete the speech test."
+            );
+
+        }
+
+    }
+
+    else {
+
+        stopRecording();
+
+    }
+
+}
+
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+    document.getElementById(
+        "timer"
+    ).innerText = timeLeft;
+
+
+    timerInterval = setInterval(function() {
+
+        timeLeft--;
+
+        document.getElementById(
+            "timer"
+        ).innerText = timeLeft;
+
+
+        if (timeLeft <= 0) {
+
+            stopRecording();
+
+        }
+
+    }, 1000);
+
+}
+
+
+function stopRecording() {
+
+    if (!recording) return;
+
+    recording = false;
+
+    clearInterval(timerInterval);
+
+    mediaRecorder.stop();
+
+    document.getElementById(
+        "recordButton"
+    ).classList.remove("recording");
+
+    document.getElementById(
+        "status"
+    ).innerText =
+        "Recording complete ✓";
+
+}
+
+
+function continueAssessment() {
+
+    window.location.href =
+        "attention.html";
+
+}
+
+</script>
+
+</body>
+</html>
