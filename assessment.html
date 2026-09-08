@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADHD Insight | Assessment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            padding: 25px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .back {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(139, 92, 246, 0.15);
+            color: #c4b5fd;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .module {
+            padding: 35px;
+            text-align: left;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .module:hover {
+            transform: translateY(-8px);
+            border-color: #8b5cf6;
+            box-shadow: 0 15px 40px rgba(124,58,237,0.2);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .module h2 {
+            margin-bottom: 12px;
+        }
+
+        .module p {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .time {
+            color: #22d3ee;
+            font-size: 14px;
+        }
+
+        .continue {
+            display: inline-block;
+            margin-top: 45px;
+            padding: 16px 40px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .notice {
+            margin-top: 35px;
+            color: #71717a;
+            font-size: 12px;
+        }
+
+        @media(max-width: 700px) {
+            .modules {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🧠 ADHD<span>Insight</span></div>
+
+    <a class="back" href="index.html">
+        ← Back
+    </a>
+</nav>
+
+<div class="container">
+
+    <div class="badge">
+        ✦ Step 1 of 4
+    </div>
+
+    <h1>Let's understand your patterns.</h1>
+
+    <p class="subtitle">
+        This assessment explores different aspects of behavior through
+        interactive tasks involving speech, attention, interaction,
+        and learning.
+    </p>
+
+    <div class="modules">
+
+        <div class="module">
+            <div class="icon">🎙️</div>
+
+            <h2>Speech Analysis</h2>
+
+            <p>
+                Complete short speaking tasks while our system
+                analyzes speech characteristics and response patterns.
+            </p>
+
+            <div class="time">⏱ Approximately 2 minutes</div>
+        </div>
+
+
+        <div class="module">
+            <div class="icon">👁️</div>
+
+            <h2>Attention Test</h2>
+
+            <p>
+                Complete a visual attention task designed to measure
+                sustained attention and responses to distractions.
+            </p>
+
+            <div class="time">⏱ Approximately 3 minutes</div>
+        </div>
+
+
+        <div class="module">
+            <div class="icon">🖱️</div>
+
+            <h2>Interaction Test</h2>
+
+            <p>
+                Complete interactive tasks while we measure reaction
+                time, accuracy, task switching, and response behavior.
+            </p>
+
+            <div class="time">⏱ Approximately 3 minutes</div>
+        </div>
+
+
+        <div class="module">
+            <div class="icon">📚</div>
+
+            <h2>Learning Test</h2>
+
+            <p>
+                Learn a small amount of new information and complete
+                repeated tasks to measure learning and retention.
+            </p>
+
+            <div class="time">⏱ Approximately 5 minutes</div>
+        </div>
+
+    </div>
+
+    <a href="#" class="continue">
+        Begin Assessment →
+    </a>
+
+    <div class="notice">
+        This is a research/educational prototype and does not provide
+        a medical diagnosis.
+    </div>
+
+</div>
+
+</body>
+</html>
