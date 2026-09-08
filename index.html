@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADHD Insight | Multimodal Attention Analysis</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #080b1a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #8b5cf6;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border: 1px solid #8b5cf6;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            color: #c4b5fd;
+        }
+
+        h1 {
+            font-size: clamp(45px, 8vw, 85px);
+            max-width: 900px;
+            line-height: 1;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .description {
+            max-width: 650px;
+            color: #a1a1aa;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .start-button {
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 35px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            padding: 30px 8% 70px;
+        }
+
+        .card {
+            width: 230px;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .card h3 {
+            margin: 15px 0 10px;
+        }
+
+        .card p {
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .icon {
+            font-size: 35px;
+        }
+
+        .disclaimer {
+            text-align: center;
+            color: #71717a;
+            font-size: 12px;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">🧠 ADHD<span>Insight</span></div>
+
+        <a href="#" class="nav-button">
+            About
+        </a>
+    </nav>
+
+    <section class="hero">
+
+        <div class="badge">
+            ✦ Multimodal Deep Learning
+        </div>
+
+        <h1>
+            Understand your
+            <span>attention patterns.</span>
+        </h1>
+
+        <p class="description">
+            ADHD Insight is a research-oriented AI platform that analyzes
+            speech, attention, interaction, and learning behavior to create
+            an explainable behavioral profile.
+        </p>
+
+        <a href="#" class="start-button">
+            Start Assessment →
+        </a>
+
+    </section>
+
+    <section class="features">
+
+        <div class="card">
+            <div class="icon">🎙️</div>
+            <h3>Speech</h3>
+            <p>
+                Analyze speech patterns, pauses, response latency
+                and other audio characteristics.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">👁️</div>
+            <h3>Attention</h3>
+            <p>
+                Study visual attention, reaction time and
+                distraction response.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🖱️</div>
+            <h3>Interaction</h3>
+            <p>
+                Analyze interaction patterns, task switching,
+                errors and response behavior.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">📚</div>
+            <h3>Learning</h3>
+            <p>
+                Measure learning speed, retention and performance
+                across repeated tasks.
+            </p>
+        </div>
+
+    </section>
+
+    <div class="disclaimer">
+        ADHD Insight is a research and educational prototype.
+        It does not provide a medical diagnosis.
+    </div>
+
+</body>
+</html>
