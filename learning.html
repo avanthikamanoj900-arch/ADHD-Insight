@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Learning Test | ADHD Insight</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #080b16;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 18px;
+    color: #8b5cf6;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+.card {
+    background: #111827;
+    border: 1px solid #263044;
+    border-radius: 22px;
+    padding: 35px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+
+.progress {
+    height: 7px;
+    background: #1f2937;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+    transition: width 0.3s;
+}
+
+.phase {
+    color: #8b5cf6;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.description {
+    color: #9ca3af;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.words {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.word {
+    background: #182033;
+    border: 1px solid #303b53;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+}
+
+.word-name {
+    font-size: 25px;
+    font-weight: bold;
+    color: #06b6d4;
+    margin-bottom: 8px;
+}
+
+.meaning {
+    color: #d1d5db;
+}
+
+.question {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.question-word {
+    font-size: 42px;
+    color: #8b5cf6;
+    margin: 15px;
+    font-weight: bold;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.option {
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #374151;
+    background: #182033;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.option:hover {
+    border-color: #8b5cf6;
+    transform: translateY(-2px);
+}
+
+.option.correct {
+    background: #064e3b;
+    border-color: #10b981;
+}
+
+.option.wrong {
+    background: #4c0519;
+    border-color: #ef4444;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #263044;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 22px;
+    font-weight: bold;
+    color: #06b6d4;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 5px;
+}
+
+button.start {
+    display: block;
+    margin: 30px auto 0;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button.start:hover {
+    transform: scale(1.03);
+}
+
+.hidden {
+    display: none;
+}
+
+.result {
+    text-align: center;
+}
+
+.result-score {
+    font-size: 55px;
+    color: #8b5cf6;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.result-text {
+    color: #9ca3af;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.disclaimer {
+    margin-top: 25px;
+    padding: 15px;
+    background: #101827;
+    border-radius: 12px;
+    color: #9ca3af;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+@media(max-width:600px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    .card {
+        padding: 22px;
+    }
+
+    .words,
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        gap: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="logo">ADHD INSIGHT</div>
+
+        <h1>Learning Behavior</h1>
+
+        <p class="subtitle">
+            Observe how quickly information is learned and retained.
+        </p>
+    </div>
+
+    <div class="card">
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- INTRO -->
+        <div id="intro">
+
+            <div class="phase">LEARNING TASK</div>
+
+            <h2>Learn a New Mini-Language</h2>
+
+            <p class="description">
+                You will first learn the meanings of four fictional words.
+                Then you will be tested several times. Try to remember the
+                meanings without writing them down.
+            </p>
+
+            <div class="words">
+
+                <div class="word">
+                    <div class="word-name">ZORA</div>
+                    <div class="meaning">Sun</div>
+                </div>
+
+                <div class="word">
+                    <div class="word-name">MILO</div>
+                    <div class="meaning">Water</div>
+                </div>
+
+                <div class="word">
+                    <div class="word-name">NARA</div>
+                    <div class="meaning">Tree</div>
+                </div>
+
+                <div class="word">
+                    <div class="word-name">KIVO</div>
+                    <div class="meaning">Book</div>
+                </div>
+
+            </div>
+
+            <button class="start" onclick="startTest()">
+                Start Learning Test →
+            </button>
+
+        </div>
+
+
+        <!-- TEST -->
+        <div id="test" class="hidden">
+
+            <div class="phase" id="roundText">
+                ROUND 1
+            </div>
+
+            <div class="question">
+
+                <p>What does this word mean?</p>
+
+                <div class="question-word" id="questionWord">
+                    ZORA
+                </div>
+
+            </div>
+
+            <div class="options" id="options"></div>
+
+        </div>
+
+
+        <!-- RESULT -->
+        <div id="result" class="hidden result">
+
+            <div class="phase">LEARNING PROFILE</div>
+
+            <h2>Learning Test Complete</h2>
+
+            <div class="result-score" id="finalScore">
+                0%
+            </div>
+
+            <p class="result-text" id="resultText"></p>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <div class="stat-number" id="finalAccuracy">
+                        0%
+                    </div>
+                    <div class="stat-label">
+                        Accuracy
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number" id="finalTime">
+                        0 ms
+                    </div>
+                    <div class="stat-label">
+                        Avg Response
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number" id="finalTrials">
+                        0
+                    </div>
+                    <div class="stat-label">
+                        Trials
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="start" onclick="finishTest()">
+                Complete Assessment ✓
+            </button>
+
+        </div>
+
+
+        <div class="disclaimer">
+            This is a research/educational prototype for observing
+            learning behavior. It is not a clinical ADHD diagnostic test
+            and should not be used to make medical decisions.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const vocabulary = {
+
+    "ZORA": "Sun",
+    "MILO": "Water",
+    "NARA": "Tree",
+    "KIVO": "Book"
+
+};
+
+const words = Object.keys(vocabulary);
+
+let totalTrials = 12;
+
+let currentTrial = 0;
+
+let correctAnswers = 0;
+
+let reactionTimes = [];
+
+let questionStartTime = 0;
+
+let currentWord = "";
+
+let answered = false;
+
+
+function startTest() {
+
+    document.getElementById("intro").classList.add("hidden");
+
+    document.getElementById("test").classList.remove("hidden");
+
+    currentTrial = 0;
+
+    correctAnswers = 0;
+
+    reactionTimes = [];
+
+    nextQuestion();
+
+}
+
+
+function nextQuestion() {
+
+    if (currentTrial >= totalTrials) {
+
+        showResults();
+
+        return;
+
+    }
+
+    currentTrial++;
+
+    answered = false;
+
+    updateProgress();
+
+    currentWord =
+        words[Math.floor(Math.random() * words.length)];
+
+    document.getElementById("questionWord").textContent =
+        currentWord;
+
+    document.getElementById("roundText").textContent =
+        "LEARNING ROUND " +
+        Math.ceil(currentTrial / 4);
+
+    createOptions();
+
+    questionStartTime = performance.now();
+
+}
+
+
+function createOptions() {
+
+    const correct = vocabulary[currentWord];
+
+    const meanings = [
+        "Sun",
+        "Water",
+        "Tree",
+        "Book"
+    ];
+
+    let options = [correct];
+
+    while (options.length < 4) {
+
+        let random =
+            meanings[Math.floor(Math.random() * meanings.length)];
+
+        if (!options.includes(random)) {
+            options.push(random);
+        }
+
+    }
+
+    options.sort(() => Math.random() - 0.5);
+
+    const container =
+        document.getElementById("options");
+
+    container.innerHTML = "";
+
+    options.forEach(option => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent = option;
+
+        button.onclick = () =>
+            answerQuestion(button, option);
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+function answerQuestion(button, answer) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const responseTime =
+        performance.now() - questionStartTime;
+
+    reactionTimes.push(responseTime);
+
+    const correct =
+        vocabulary[currentWord] === answer;
+
+    if (correct) {
+
+        correctAnswers++;
+
+        button.classList.add("correct");
+
+    } else {
+
+        button.classList.add("wrong");
+
+        const buttons =
+            document.querySelectorAll(".option");
+
+        buttons.forEach(btn => {
+
+            if (
+                btn.textContent ===
+                vocabulary[currentWord]
+            ) {
+                btn.classList.add("correct");
+            }
+
+        });
+
+    }
+
+    setTimeout(() => {
+
+        nextQuestion();
+
+    }, 650);
+
+}
+
+
+function updateProgress() {
+
+    const percentage =
+        (currentTrial / totalTrials) * 100;
+
+    document.getElementById("progressBar").style.width =
+        percentage + "%";
+
+}
+
+
+function showResults() {
+
+    document.getElementById("test").classList.add("hidden");
+
+    document.getElementById("result").classList.remove("hidden");
+
+    const accuracy =
+        Math.round(
+            (correctAnswers / totalTrials) * 100
+        );
+
+    const averageTime =
+        Math.round(
+            reactionTimes.reduce(
+                (a,b) => a+b, 0
+            ) / reactionTimes.length
+        );
+
+    document.getElementById("finalScore").textContent =
+        accuracy + "%";
+
+    document.getElementById("finalAccuracy").textContent =
+        accuracy + "%";
+
+    document.getElementById("finalTime").textContent =
+        averageTime + " ms";
+
+    document.getElementById("finalTrials").textContent =
+        totalTrials;
+
+
+    let message = "";
+
+    if (accuracy >= 85) {
+
+        message =
+        "The participant showed strong learning accuracy during this task.";
+
+    } else if (accuracy >= 60) {
+
+        message =
+        "The participant showed moderate learning accuracy with some errors.";
+
+    } else {
+
+        message =
+        "The participant showed lower accuracy during this learning task.";
+
+    }
+
+    message +=
+        " Response time and accuracy can be analyzed together with the other assessment modules.";
+
+    document.getElementById("resultText").textContent =
+        message;
+
+}
+
+
+function finishTest() {
+
+    alert(
+        "Learning assessment completed. Next we will connect all four modules to the AI backend."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
